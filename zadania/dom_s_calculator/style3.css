@@ -1,0 +1,56 @@
+body{
+    background: #888888;
+    font-family: Arial;
+}
+
+#all{
+    width: 450px;
+    background: #EEEEEE;
+    margin:100px auto;
+}
+
+#screen{
+    height:50px; 
+    line-height:50px; 
+    padding:5px; 
+    font-size:36px; 
+    text-align:right;
+    background: #9999CC;
+    color: #555588;
+    border: 2px solid #555588;
+}
+
+#calculator{
+    padding:10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.item{
+    width:23%;
+    padding: 5px 1%;
+}
+
+label{
+    font-size:11px; 
+    color: #666666; 
+    text-align:center
+}
+
+input[type=text], select{
+    width:90%; 
+    line-height:30px; 
+    font-size: 24px;
+    text-align:center;
+}
+
+input[type=submit]{
+    width:90%; 
+    height: 50px;
+    text-align: center;
+    font-size:28px;
+    color: #DDDDDD;
+    background: #666666;
+    border: 1px solid #DDDDDD;
+}

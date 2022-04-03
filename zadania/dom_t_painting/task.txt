@@ -1,0 +1,5 @@
+Using the sample code, finish an application - a simple graphical program.
+Application should modify the workplace (right side of the window), using a chosen color and tool (left side).
+
+For example, when we choose an option "background color", any clicked `<div>` in the workspace should be given a current background color.
+Do the same with the other tools.
