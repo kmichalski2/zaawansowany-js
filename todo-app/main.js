@@ -1,4 +1,5 @@
 const ulElement = document.querySelector('#list');
+let tasklists;
 
 // Model
 class TasksList {
@@ -20,22 +21,12 @@ class TasksList {
 }
 
 class Task {
-    constructor(id, name, time, done) {
+    constructor(id, name, done) {
         this.id = id;
         this.name = name;
-        this.time = time;
         this.done = done;
     }
 }
-
-const tasks = [
-    new Task(1, "Wyrzucić śmieci", "20:00", false),
-    new Task(2, "Zrobić zakupy", "18:00", false),
-    new Task(3, "Trening", "19:00", false),
-    new Task(4, "Przygotować prezentację", "15:00", false)
-];
-
-const tasklists = new TasksList(tasks);
 
 function findTasks(query) {
     return tasklists.getAll().filter(item => item.name.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
@@ -43,7 +34,7 @@ function findTasks(query) {
 
 function createTask(name, time) {
     const id = tasklists.count() + 1;
-    return new Task(id, name, time, false);
+    return new Task(id, name, false);
 }
 
 // View
@@ -58,7 +49,7 @@ function clearView() {
 function renderTask(task) {
     const liElement = document.createElement('li');
 
-    liElement.innerText = `${task.id}. ${task.name} (${task.time})`;
+    liElement.innerText = `${task.id}. ${task.name}`;
     liElement.id = task.id;
     liElement.className = 'list-group-item';
 
@@ -76,9 +67,9 @@ function renderTask(task) {
     ulElement.append(liElement);
 }
 
-function initTasks() {
+function initTasks(tasklists) {
     for (const index in tasklists.getAll()) {
-        renderTask(tasks[index]);
+        renderTask(tasklists.getAll()[index]);
     }
 }
 
@@ -88,10 +79,6 @@ function updateView(tasks) {
         renderTask(tasks[index]);
     }
 }
-
-clearView();
-
-initTasks();
 
 const clearButtonElement = document.querySelector('#clear-button');
 const formElement = document.querySelector('#add-form');
@@ -131,3 +118,32 @@ searchInputElement.addEventListener('keyup', (event) => {
 
     updateView(results);
 });
+
+/**
+ * 
+ * Pobierz listę todosów i wyświetl w aplikacji za pomocą fetch ()
+ * URL : https://jsonplaceholder.typicode.com/todos
+ * 
+ * 1. Zmień strukturę TODO na { id, name, completed }
+ * 2. Pobierz za pomocą fetch listę TODOs
+ * 3. Wyświetl pobrane TODOs jako listę w HTML
+ * 
+ */
+
+
+
+async function fetchData() {
+    const response = await fetch('https://jsonplaceholder.typicode.com/todos');
+    const data = await response.json();
+
+    const tasks = data.map(item => {
+        return new Task(item.id, item.title, item.completed);
+    });
+    tasklists = new TasksList(tasks);
+
+    clearView();
+    initTasks(tasklists);
+}
+
+
+fetchData();
